@@ -9,16 +9,11 @@ const GRAVITY := 980.0
 var gravity_direction := 1.0
 var dead := false
 
-<<<<<<< HEAD
-=======
 # True only while the player is standing on a floor tile whose
 # "allowGravity" custom data is set. Gravity flips (spacebar) are only
 # allowed then — never in mid-air, and never on unflagged floors.
 var can_flip := false
 
-signal died
-
->>>>>>> eeaedcaa817c1e7ae7a87acff7d029046af7e214
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 
@@ -78,20 +73,6 @@ func _update_animation(direction: float) -> void:
 		animated_sprite_2d.play("idle")
 
 
-<<<<<<< HEAD
-# If the tile at a collision's contact point has its "death" custom data
-# set in the TileSet, the player dies.
-# We look up the tile at the contact point, nudged slightly into the surface
-# along the inverted normal (get_coords_for_body_rid is unreliable because
-# tiles are grouped into physics quadrants).
-func _check_deadly_tiles() -> void:
-	for i in get_slide_collision_count():
-		var collision := get_slide_collision(i)
-		var contact := collision.get_position() - collision.get_normal() * 4.0
-		if _is_deadly_at(collision.get_collider(), contact):
-			_die()
-			return
-=======
 # Contacts with special tiles: the "death" custom data kills, the "bounce"
 # custom data flips gravity once per landing (bounce pad).
 # NOTE: we can't use get_coords_for_body_rid here — in Godot 4.7 tiles are
@@ -139,7 +120,7 @@ func _check_tile_contacts() -> void:
 
 
 var _was_on_bounce := false
->>>>>>> eeaedcaa817c1e7ae7a87acff7d029046af7e214
+var _last_debug_cell := Vector2i(999999, 999999)  # debug only
 
 
 func _is_deadly_at(collider: Object, contact: Vector2) -> bool:

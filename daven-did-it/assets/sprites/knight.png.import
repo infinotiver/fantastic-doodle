@@ -2,26 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<<< HEAD:daven-did-it/assets/sprites/knight.png.import
 uid="uid://da0p7ypydoe6"
 path="res://.godot/imported/knight.png-7c67c83d34932624952797d9e971a644.ctex"
-========
-uid="uid://cmg03ofacgyh1"
-path="res://.godot/imported/world_tileset (1).png-bd0dd51e9da2b3618adfa13ac2a6f4f2.ctex"
->>>>>>>> eeaedcaa817c1e7ae7a87acff7d029046af7e214:daven-did-it/assets/sprites/world_tileset (1).png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<<< HEAD:daven-did-it/assets/sprites/knight.png.import
 source_file="res://assets/sprites/knight.png"
 dest_files=["res://.godot/imported/knight.png-7c67c83d34932624952797d9e971a644.ctex"]
-========
-source_file="res://assets/sprites/world_tileset (1).png"
-dest_files=["res://.godot/imported/world_tileset (1).png-bd0dd51e9da2b3618adfa13ac2a6f4f2.ctex"]
->>>>>>>> eeaedcaa817c1e7ae7a87acff7d029046af7e214:daven-did-it/assets/sprites/world_tileset (1).png.import
 
 [params]
 

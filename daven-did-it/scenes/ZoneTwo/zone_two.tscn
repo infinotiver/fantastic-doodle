@@ -2,10 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://da6gfcp2fp5tb" path="res://assets/sprites/world_tileset.png" id="2_omabd"]
 [ext_resource type="Script" uid="uid://bf54vaqq73opo" path="res://scripts/zone 2/zone_two_player.gd" id="2_player"]
-<<<<<<< HEAD
-=======
-[ext_resource type="Texture2D" uid="uid://cmg03ofacgyh1" path="res://assets/sprites/world_tileset (1).png" id="3_1owow"]
->>>>>>> eeaedcaa817c1e7ae7a87acff7d029046af7e214
 [ext_resource type="Script" uid="uid://c7g1vtlr00taw" path="res://scripts/zone 2/zone_two.gd" id="3_zone"]
 [ext_resource type="Texture2D" uid="uid://du8av1iub1yll" path="res://assets/sprites/Spike.png" id="4_i378m"]
 [ext_resource type="PackedScene" uid="uid://bwm4uoiicxqks" path="res://scenes/player.tscn" id="4_mtbqe"]
@@ -76,11 +72,6 @@ texture = ExtResource("2_omabd")
 5:6/0 = 0
 6:6/0 = 0
 7:6/0 = 0
-<<<<<<< HEAD
-=======
-7:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-7:6/0/custom_data_1 = true
->>>>>>> eeaedcaa817c1e7ae7a87acff7d029046af7e214
 8:6/0 = 0
 0:7/0 = 0
 1:7/0 = 0
