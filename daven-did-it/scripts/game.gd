@@ -12,8 +12,9 @@ var pending_spawn: StringName = &""
 ## marker on load, and updated by checkpoints as they're touched.
 var respawn_point: Node2D
 
-## True while a killzone bounce is running. Shared so two killzones touching
-## the player at the same time can't both start a bounce.
+## True while a death sequence (killzone bounce-back) is running. Shared so
+## two killzones touching the player at the same time can't both start a
+## bounce, and so player scripts can lock out input for the whole sequence.
 var respawning := false
 
 

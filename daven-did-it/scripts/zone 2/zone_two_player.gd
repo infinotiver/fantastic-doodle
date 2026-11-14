@@ -1,13 +1,10 @@
 extends CharacterBody2D
 
-signal died
-
 const SPEED := 130.0
 const GRAVITY := 980.0
 
 # 1 = normal gravity (falls down), -1 = flipped (falls up)
 var gravity_direction := 1.0
-var dead := false
 
 # True only while the player is standing on a floor tile whose
 # "allowGravity" custom data is set. Gravity flips (spacebar) are only
@@ -22,7 +19,9 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if dead:
+	# During the killzone's death sequence the bounce-back drives the body,
+	# so gravity flips are ignored.
+	if Game.respawning:
 		return
 	# Spacebar flips gravity, but only while standing on a floor that
 	# allows it (can_flip). Never in mid-air, never on unflagged floors.
@@ -42,10 +41,16 @@ func flip_gravity() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if dead:
-		return
-	# Apply gravity in the current direction.
+	# Apply gravity in the current direction (always, so the death bounce's
+	# hops can still land).
 	velocity.y += gravity_direction * GRAVITY * delta
+
+	# While a death sequence runs (the killzone's bounce-back), input is
+	# ignored: the killzone script drives the body and the animation.
+	if Game.respawning:
+		velocity.x = 0.0
+		move_and_slide()
+		return
 
 	# A / D horizontal movement only.
 	var direction := 0.0
@@ -136,17 +141,28 @@ func _is_deadly_at(collider: Object, contact: Vector2) -> bool:
 	return data != null and bool(data.get_custom_data("death"))
 
 
-func _die() -> void:
-	if dead:
-		return
-	dead = true
+## Called by the killzone at the start of the death sequence, for every
+## kill trigger (spike tiles or falling out of the level). Resets the
+## flipped gravity, so the flight arc and landing hops fall downward and
+## settle on the floor at the spawn point.
+func on_death_start() -> void:
+	gravity_direction = 1.0
+	up_direction = Vector2.UP
 	velocity = Vector2.ZERO
-	died.emit()
+	animated_sprite_2d.flip_v = false
+
+
+func _die() -> void:
+	if Game.respawning:
+		return
+	for zone in get_tree().get_nodes_in_group("killzones"):
+		if zone.has_method("kill"):
+			zone.kill(self)
+			return
 
 
 ## Teleports back to `target` and resets all death/gravity state.
 func respawn(target: Node2D) -> void:
-	dead = false
 	gravity_direction = 1.0
 	up_direction = Vector2.UP
 	velocity = Vector2.ZERO

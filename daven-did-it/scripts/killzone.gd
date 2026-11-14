@@ -10,6 +10,12 @@ var player: CharacterBody2D
 
 
 func _on_body_entered(body: Node2D) -> void:
+	kill(body)
+
+
+## Starts the bounce-back sequence. Called by the Area2D signal, or by the
+## player when it hits a tile whose "killbox" custom data is true.
+func kill(body: Node2D) -> void:
 	# Ignore non-players and anything touching while a bounce is running
 	# (this or any other killzone).
 	if Game.respawning or not (body is CharacterBody2D):
@@ -47,6 +53,10 @@ func _bounce_back() -> void:
 	p.collision_mask = 0
 	p.velocity = Vector2.ZERO
 	p.set_physics_process(false)
+	# Let the player reset its own state before the flight drives the body
+	# (zone two resets a flipped gravity here, for every kill trigger).
+	if p.has_method(&"on_death_start"):
+		p.call(&"on_death_start")
 	# The player's own script is paused, so pick the animation ourselves.
 	sprite.play("jump")
 
