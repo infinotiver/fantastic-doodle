@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://p77nseiyyrpj"]
+
+[ext_resource type="Script" uid="uid://vi0tr3un7ppg" path="res://scripts/slime.gd" id="1_n6pvg"]
+[ext_resource type="Texture2D" uid="uid://bjuvyxc3k7nvf" path="res://assets/sprites/placeholder/slime_green.png" id="1_p2gj0"]
+[ext_resource type="PackedScene" uid="uid://c0ncwt7sugpjr" path="res://scenes/killzone.tscn" id="2_n6pvg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjw23"]
+atlas = ExtResource("1_p2gj0")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2npkn"]
+atlas = ExtResource("1_p2gj0")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fd6lc"]
+atlas = ExtResource("1_p2gj0")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gstla"]
+atlas = ExtResource("1_p2gj0")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wvhbo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pjw23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2npkn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd6lc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gstla")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvhbo"]
+size = Vector2(14, 12)
+
+[node name="Slime" type="Node2D" unique_id=675590921]
+script = ExtResource("1_n6pvg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=701910893]
+sprite_frames = SubResource("SpriteFrames_wvhbo")
+animation = &"idle"
+autoplay = "idle"
+flip_h = true
+
+[node name="RayCastRight" type="RayCast2D" parent="." unique_id=1951554188]
+position = Vector2(0, 5)
+target_position = Vector2(15, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="." unique_id=1080332965]
+position = Vector2(0, 5)
+target_position = Vector2(-14, 0)
+
+[node name="Killzone" parent="." unique_id=786441190 instance=ExtResource("2_n6pvg")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone" unique_id=1410101602]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_wvhbo")
