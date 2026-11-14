@@ -1,16 +1,15 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://drhxnq7xh3xre"]
 
-[ext_resource type="Script" path="res://scripts/checkpoint.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://blwqxnaff1qeg" path="res://scripts/checkpoint.gd" id="1_script"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_checkpoint"]
-radius = 10.0
 
-[node name="Checkpoint" type="Area2D"]
+[node name="Checkpoint" type="Area2D" unique_id=1134745543]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_script")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=936981862]
 shape = SubResource("CircleShape2D_checkpoint")
 
-[node name="Spawn" type="Marker2D" parent="." groups=["spawn_points"]]
+[node name="Spawn" type="Marker2D" parent="." unique_id=163035100]

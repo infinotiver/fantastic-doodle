@@ -1,14 +1,23 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://de40dxmpeb3ii"]
 
-[ext_resource type="Script" path="res://scripts/portal.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://b35r4cq44sylf" path="res://scripts/portal.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://caj7jd0bu8vt3" path="res://assets/sprites/Crying_Obsidian_JE1_BE1.png" id="2_1ffj6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_portal"]
-size = Vector2(20, 20)
+size = Vector2(72, 128)
 
-[node name="Portal" type="Area2D"]
+[node name="Portal" type="Area2D" unique_id=462895449]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_script")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=243176502]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_1ffj6")
+region_enabled = true
+region_rect = Rect2(203, 151, 68, 139)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=70525673]
+position = Vector2(0, -6)
+scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_portal")

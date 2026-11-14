@@ -4,17 +4,24 @@ extends Node2D
 ## On load, teleports the player to the spawn marker requested by whoever
 ## sent them here (a portal), or to the level's default start.
 ## Zone scripts extend this so they only need their own logic.
+## Needs a child node named "Player" and spawn markers in the
+## "spawn_points" group.
 
-@onready var player: Node2D = $Player
+@onready var player: Node2D = get_node_or_null("Player") as Node2D
 
 
 func _ready() -> void:
+	Game.respawning = false
+	Engine.time_scale = 1.0
 	_spawn_player()
 
 
 func _spawn_player() -> void:
+	# Never keep a marker from the previous level.
+	Game.respawn_point = null
 	if player == null:
 		push_warning("Level '%s' has no Player child." % name)
+		Game.pending_spawn = &""
 		return
 	var spawn := Game.find_spawn(self, Game.pending_spawn)
 	if spawn != null:
@@ -22,7 +29,8 @@ func _spawn_player() -> void:
 		# Wherever we arrive becomes the respawn point until a checkpoint
 		# says otherwise.
 		Game.respawn_point = spawn
-	# With no spawn markers at all, leave the player where the scene places it.
+	else:
+		push_warning("Level '%s' has no node in the 'spawn_points' group." % name)
 	Game.pending_spawn = &""
 
 
@@ -33,9 +41,9 @@ func _spawn_player() -> void:
 func respawn_player() -> void:
 	if player == null:
 		return
-	var spawn := Game.respawn_point
+	var spawn: Node2D = Game.respawn_point
 	if spawn == null or not is_instance_valid(spawn):
-		spawn = Game.find_spawn(self)
+		spawn = Game.find_spawn(self, &"")
 	if spawn == null:
 		return
 	if player.has_method("respawn"):

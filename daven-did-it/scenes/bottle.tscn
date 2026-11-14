@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cra8llpvpua12"]
+
+[ext_resource type="Script" uid="uid://bf7qbosyhf2u" path="res://scripts/bottle.gd" id="1_t88ou"]
+[ext_resource type="Texture2D" uid="uid://da6gfcp2fp5tb" path="res://assets/sprites/world_tileset.png" id="2_i64fm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11l1o"]
+atlas = ExtResource("2_i64fm")
+region = Rect2(16, 112, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wvhbo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_11l1o")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yyywg"]
+radius = 4.0
+height = 18.0
+
+[node name="Coin" type="Area2D" unique_id=1364660099]
+collision_mask = 2
+script = ExtResource("1_t88ou")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=117532882]
+sprite_frames = SubResource("SpriteFrames_wvhbo")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1628521136]
+shape = SubResource("CapsuleShape2D_yyywg")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,23 +1,25 @@
 [gd_scene format=3 uid="uid://p77nseiyyrpj"]
 
 [ext_resource type="Script" uid="uid://vi0tr3un7ppg" path="res://scripts/slime.gd" id="1_n6pvg"]
-[ext_resource type="Texture2D" uid="uid://bjuvyxc3k7nvf" path="res://assets/sprites/placeholder/slime_green.png" id="1_p2gj0"]
 [ext_resource type="PackedScene" uid="uid://c0ncwt7sugpjr" path="res://scenes/killzone.tscn" id="2_n6pvg"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p2gj0"]
+load_path = "res://.godot/imported/slime_green.png-5192eff0fb2d5dabdd04c87111612dd0.ctex"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_pjw23"]
-atlas = ExtResource("1_p2gj0")
+atlas = SubResource("CompressedTexture2D_p2gj0")
 region = Rect2(0, 24, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2npkn"]
-atlas = ExtResource("1_p2gj0")
+atlas = SubResource("CompressedTexture2D_p2gj0")
 region = Rect2(24, 24, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fd6lc"]
-atlas = ExtResource("1_p2gj0")
+atlas = SubResource("CompressedTexture2D_p2gj0")
 region = Rect2(48, 24, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gstla"]
-atlas = ExtResource("1_p2gj0")
+atlas = SubResource("CompressedTexture2D_p2gj0")
 region = Rect2(72, 24, 24, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wvhbo"]

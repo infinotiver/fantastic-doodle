@@ -1,5 +1,5 @@
 extends Node
-## Global game state, shared across scenes. Registered as the "Game" autoload.
+## global game state, shared across scenes. Registered as the "Game" autoload.
 
 const SPAWN_GROUP := "spawn_points"
 const DEFAULT_SPAWN := &"start"
@@ -12,11 +12,22 @@ var pending_spawn: StringName = &""
 ## marker on load, and updated by checkpoints as they're touched.
 var respawn_point: Node2D
 
+## True while a killzone bounce is running. Shared so two killzones touching
+## the player at the same time can't both start a bounce.
+var respawning := false
+
 
 ## Sends the player to another scene (another zone or another level within
 ## the same zone) and places them at the spawn marker called `spawn` there.
 func travel_to(scene: PackedScene, spawn: StringName = DEFAULT_SPAWN) -> void:
+	if scene == null:
+		push_warning("Game.travel_to: no scene given.")
+		return
 	pending_spawn = spawn
+	# The old level's markers are about to be freed, so drop the reference.
+	respawn_point = null
+	respawning = false
+	Engine.time_scale = 1.0
 	# Deferred so we don't change the scene mid physics callback.
 	get_tree().change_scene_to_packed.call_deferred(scene)
 
@@ -27,6 +38,7 @@ func travel_to(scene: PackedScene, spawn: StringName = DEFAULT_SPAWN) -> void:
 ## 3. The first spawn marker anywhere in the level's tree.
 ## Pass an empty `spawn_name` to get the level's default start.
 ## Returns null when the level has no spawn markers at all.
+## Markers must be in the "spawn_points" group.
 func find_spawn(level: Node, spawn_name: StringName = DEFAULT_SPAWN) -> Node2D:
 	if level == null:
 		return null
@@ -43,6 +55,8 @@ func find_spawn(level: Node, spawn_name: StringName = DEFAULT_SPAWN) -> Node2D:
 			return node
 		if direct_child == null and node.get_parent() == level:
 			direct_child = node
+	if wanted != "" and (direct_child != null or first_found != null):
+		push_warning("Game: no spawn marker named '%s' in '%s', using the default one." % [spawn_name, level.name])
 	if direct_child != null:
 		return direct_child
 	return first_found
