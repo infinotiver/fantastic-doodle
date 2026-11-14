@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://dhjunk2pmnaro"]
 
 [ext_resource type="Texture2D" uid="uid://cqntluvjpsb33" path="res://assets/sprites/placeholder/world_tileset.png" id="1_1am5t"]
-[ext_resource type="PackedScene" path="res://scenes/ZoneTwo/zone_two_player.tscn" id="2_player"]
+[ext_resource type="Script" uid="uid://bf54vaqq73opo" path="res://scripts/zone 2/zone_two_player.gd" id="2_player"]
 [ext_resource type="Script" uid="uid://c7g1vtlr00taw" path="res://scripts/zone 2/zone_two.gd" id="3_zone"]
+[ext_resource type="PackedScene" uid="uid://bwm4uoiicxqks" path="res://scenes/player.tscn" id="4_mtbqe"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hqis1"]
 texture = ExtResource("1_1am5t")
@@ -233,10 +234,12 @@ tile_set = SubResource("TileSet_8oxoo")
 format = 2
 layer_0/tile_data = PackedInt32Array(131068, 0, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 327680, 3, 65537, 327680, 3, 65538, 327680, 3, 65539, 327680, 3, 65540, 327680, 3, 131067, 0, 0, -262144, 0, 1, -262143, 0, 1, -262142, 0, 1, -262141, 0, 1, -262140, 0, 1, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 65544, 0, 0, 65545, 0, 0, -524278, 0, 0, -524277, 0, 0, -524276, 0, 0, -524275, 0, 0, -196593, 0, 0, -196592, 0, 0, -196591, 0, 0, -524274, 0, 0, -262129, 65536, 4, -262128, 65536, 4, -262127, 65536, 4, -196606, 65536, 7, 7, 65536, 7, -458740, 65536, 7, -327664, 65536, 7, -524270, 65536, 7, -589806, 65536, 4, -655342, 0, 1, 655375, 0, 0, 589839, 65536, 4, 262158, 0, 1, 262157, 0, 1, 262156, 0, 1, -131055, 65536, 3, 327692, 65536, 7, -65519, 65536, 7, 524303, 65536, 7, 393235, 65536, 0, 393236, 0, 0, 393237, 0, 0, 393238, 0, 0, 393240, 0, 0, 327703, 0, 0, 65559, 0, 0, 393239, 0, 1, 131091, 0, 0, 196627, 0, 1, 262163, 0, 1, 327699, 65536, 0, 262167, 65536, 4, 393241, 0, 0, 196634, 524288, 1, 262170, 524288, 1, 327706, 524288, 1, 393242, 524288, 1, 393243, 524288, 1, 393244, 524288, 1, 327708, 524288, 1, 262172, 524288, 1, 196636, 524288, 1, 262171, 524288, 2, 327707, 524288, 2, 196635, 524288, 1)
 
-[node name="ZoneTwoPlayer" parent="." unique_id=946076416 instance=ExtResource("2_player")]
-position = Vector2(-70, -22)
+[node name="Player" parent="." unique_id=1304845065 instance=ExtResource("4_mtbqe")]
+position = Vector2(-50, -13)
+script = ExtResource("2_player")
 
-[node name="Camera2D" type="Camera2D" parent="ZoneTwoPlayer" unique_id=416348798]
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=416348798]
+position = Vector2(22, 13)
 zoom = Vector2(4, 4)
 
 [node name="GameOverLayer" type="CanvasLayer" parent="." unique_id=1943407214]
@@ -251,4 +254,4 @@ text = "Game Over"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="died" from="ZoneTwoPlayer" to="." method="_on_zone_two_player_died"]
+[connection signal="died" from="Player" to="." method="_on_player_died"]

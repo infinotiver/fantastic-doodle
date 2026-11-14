@@ -10,6 +10,8 @@ var dead := false
 
 signal died
 
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+
 
 func _ready() -> void:
 	up_direction = Vector2.UP
@@ -25,7 +27,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		up_direction = Vector2.UP if gravity_direction > 0 else Vector2.DOWN
 		velocity.y = 0.0
 		# Orient the sprite with the new gravity.
-		$Sprite2D.flip_v = gravity_direction < 0
+		animated_sprite_2d.flip_v = gravity_direction < 0
 
 
 func _physics_process(delta: float) -> void:
@@ -45,8 +47,19 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, SPEED)
 
+	_update_animation(direction)
 	move_and_slide()
 	_check_deadly_tiles()
+
+
+func _update_animation(direction: float) -> void:
+	if not is_on_floor():
+		animated_sprite_2d.play("jump")
+	elif direction != 0:
+		animated_sprite_2d.play("run")
+		animated_sprite_2d.flip_h = direction < 0
+	else:
+		animated_sprite_2d.play("idle")
 
 
 # If the tile at a collision's contact point has its "death" custom data
