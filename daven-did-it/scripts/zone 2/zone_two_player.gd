@@ -8,6 +8,11 @@ var gravity_direction := 1.0
 
 var dead := false
 
+# True only while the player is standing on a floor tile whose
+# "allowGravity" custom data is set. Gravity flips (spacebar) are only
+# allowed then — never in mid-air, and never on unflagged floors.
+var can_flip := false
+
 signal died
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -20,14 +25,21 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if dead:
 		return
-	# Spacebar is the only other control: flip gravity.
+	# Spacebar flips gravity, but only while standing on a floor that
+	# allows it (can_flip). Never in mid-air, never on unflagged floors.
 	if event is InputEventKey and event.pressed and not event.echo \
-			and event.physical_keycode == KEY_SPACE:
-		gravity_direction *= -1
-		up_direction = Vector2.UP if gravity_direction > 0 else Vector2.DOWN
-		velocity.y = 0.0
-		# Orient the sprite with the new gravity.
-		animated_sprite_2d.flip_v = gravity_direction < 0
+			and event.physical_keycode == KEY_SPACE and can_flip:
+		flip_gravity()
+
+
+## Flips gravity to the other side and reorients the sprite.
+## Used by the spacebar and by bounce pad tiles.
+func flip_gravity() -> void:
+	gravity_direction *= -1
+	up_direction = Vector2.UP if gravity_direction > 0 else Vector2.DOWN
+	velocity.y = 0.0
+	# Orient the sprite with the new gravity.
+	animated_sprite_2d.flip_v = gravity_direction < 0
 
 
 func _physics_process(delta: float) -> void:
@@ -49,7 +61,7 @@ func _physics_process(delta: float) -> void:
 
 	_update_animation(direction)
 	move_and_slide()
-	_check_deadly_tiles()
+	_check_tile_contacts()
 
 
 func _update_animation(direction: float) -> void:
@@ -62,13 +74,15 @@ func _update_animation(direction: float) -> void:
 		animated_sprite_2d.play("idle")
 
 
-# If the tile at a collision's contact point has its "death" custom data
-# set in the TileSet, the player dies.
+# Contacts with special tiles: the "death" custom data kills, the "bounce"
+# custom data flips gravity once per landing (bounce pad).
 # NOTE: we can't use get_coords_for_body_rid here — in Godot 4.7 tiles are
 # grouped into physics quadrants, so it reports the quadrant's base cell,
 # not the tile actually touched. Instead we look up the tile at the contact
 # point, nudged slightly into the surface along the inverted normal.
-func _check_deadly_tiles() -> void:
+func _check_tile_contacts() -> void:
+	var on_bounce := false
+	var gravity_allowed := false
 	for i in get_slide_collision_count():
 		var collision := get_slide_collision(i)
 		var collider: Object = collision.get_collider()
@@ -81,10 +95,32 @@ func _check_deadly_tiles() -> void:
 				var debug_data: TileData = tile_map.get_cell_tile_data(0, cell)
 				print("[debug] contact cell ", cell, ", death flag = ", debug_data != null and debug_data.get_custom_data("death"))
 			var tile_data: TileData = tile_map.get_cell_tile_data(0, cell)
-			if tile_data and tile_data.get_custom_data("death"):
+			if tile_data == null:
+				continue
+			if tile_data.get_custom_data("death"):
 				print("[debug] dying at cell ", cell)
 				_die()
 				return
+			if tile_data.get_custom_data("bounce"):
+				on_bounce = true
+			# Only floor-like contacts (normal pointing against current
+			# gravity) count as "standing on" the tile, so walls and
+			# ceilings don't grant the ability.
+			if tile_data.get_custom_data("allowGravity") \
+					and collision.get_normal().dot(up_direction) > 0.5:
+				gravity_allowed = true
+	# Only flip on the first frame of contact, so standing on the pad
+	# doesn't machine-gun flips; stepping off and back on triggers it again.
+	if on_bounce and not _was_on_bounce:
+		print("[debug] bounce pad touched, flipping gravity")
+		flip_gravity()
+	_was_on_bounce = on_bounce
+	if gravity_allowed != can_flip:
+		print("[debug] can_flip = ", gravity_allowed)
+	can_flip = gravity_allowed
+
+
+var _was_on_bounce := false
 
 
 var _last_debug_cell := Vector2i(999999, 999999)  # debug only
