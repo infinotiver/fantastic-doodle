@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://drgnqttb88qpr" path="res://assets/sprites/slime_green.png" id="6_2bhss"]
 [ext_resource type="Texture2D" uid="uid://dakgmtq4241xo" path="res://assets/sprites/slime_purple.png" id="7_vmadp"]
 [ext_resource type="PackedScene" uid="uid://c0ncwt7sugpjr" path="res://scenes/killzone.tscn" id="8_kill"]
+[ext_resource type="PackedScene" path="res://scenes/portal.tscn" id="11_08ad3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hqis1"]
 texture = ExtResource("2_omabd")
@@ -527,3 +528,7 @@ shape = SubResource("WorldBoundaryShape2D_bottom")
 [node name="TopBoundary" type="CollisionShape2D" parent="Killzone" unique_id=1464223863]
 position = Vector2(0, -168)
 shape = SubResource("WorldBoundaryShape2D_top")
+
+[node name="Portal" parent="Killzone" unique_id=462895449 instance=ExtResource("11_08ad3")]
+position = Vector2(-83, -9)
+target_scene_path = "uid://bwaax8dvdb88x"
