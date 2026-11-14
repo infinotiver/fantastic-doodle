@@ -23,9 +23,13 @@ func _on_timer_timeout() -> void:
 
 
 func _bounce_back() -> void:
-	var spawn := get_tree().get_first_node_in_group("respawn_point") as Node2D
+	# The level's start marker by default; checkpoints move this as the
+	# player touches them.
+	var spawn := Game.respawn_point
+	if spawn == null or not is_instance_valid(spawn):
+		spawn = Game.find_spawn(get_tree().current_scene)
 	if spawn == null:
-		push_warning("Killzone: no node in group 'respawn_point', reloading scene instead.")
+		push_warning("Killzone: no spawn marker in level, reloading scene instead.")
 		get_tree().reload_current_scene()
 		return
 

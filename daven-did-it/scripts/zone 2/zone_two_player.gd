@@ -96,3 +96,14 @@ func _die() -> void:
 	dead = true
 	velocity = Vector2.ZERO
 	died.emit()
+
+
+## Teleports back to `target` and resets all death/gravity state.
+func respawn(target: Node2D) -> void:
+	dead = false
+	gravity_direction = 1.0
+	up_direction = Vector2.UP
+	velocity = Vector2.ZERO
+	animated_sprite_2d.flip_v = false
+	if target != null:
+		global_position = target.global_position

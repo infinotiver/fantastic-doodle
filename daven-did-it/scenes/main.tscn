@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://c0ncwt7sugpjr" path="res://scenes/killzone.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://p77nseiyyrpj" path="res://scenes/slime.tscn" id="6_tefeu"]
 [ext_resource type="Script" uid="uid://5l5f08ywg2b7" path="res://scripts/main.gd" id="7_main"]
+[ext_resource type="PackedScene" path="res://scenes/portal.tscn" id="8_portal"]
+[ext_resource type="PackedScene" uid="uid://dhjunk2pmnaro" path="res://scenes/ZoneTwo/zone_two.tscn" id="9_z2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sugp2"]
 texture = ExtResource("2_0wfyh")
@@ -211,9 +213,6 @@ _data = {
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_abi3o"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_transition"]
-size = Vector2(20, 20)
-
 [node name="Main" type="Node2D" unique_id=757171630]
 script = ExtResource("7_main")
 
@@ -276,15 +275,10 @@ position = Vector2(71, -56)
 [node name="Slime" parent="." unique_id=675590921 instance=ExtResource("6_tefeu")]
 position = Vector2(539, 46)
 
-[node name="SpawnPoint" type="Marker2D" parent="." unique_id=269964754]
+[node name="SpawnPoint" type="Marker2D" parent="." groups=["spawn_points"] unique_id=269964754]
 position = Vector2(13, 28)
 
-[node name="ZoneTransition" type="Area2D" parent="."]
+[node name="Portal" parent="." instance=ExtResource("8_portal")]
 position = Vector2(-8, 40)
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoneTransition"]
-shape = SubResource("RectangleShape2D_transition")
-
-[connection signal="body_entered" from="ZoneTransition" to="." method="_on_zone_transition_body_entered"]
+target_scene = ExtResource("9_z2")
+target_spawn = &"start"
