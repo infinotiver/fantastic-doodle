@@ -1,17 +1,17 @@
 extends Level
 
 @export var shift_tile_atlas := Vector2i(1, 1)
-## Remaining time under which the fight switches to its faster phase.
+
 @export var fast_phase_at := 7.0
 @export var fast_blink_at := 3.0
 
-const ARENA_MIN := Vector2i(-18, -7)  # outer rectangle corners:
-const ARENA_MAX := Vector2i(17, 7)    # (17,-7) (17,7) (-18,7) (-18,-7)
+const ARENA_MIN := Vector2i(-18, -7)
+const ARENA_MAX := Vector2i(17, 7)
 
 const SLOW_TILES := 20
 const SLOW_BLINKS := 5
-const SLOW_BLINK_SECONDS := 0.4  # how long each blink half (off/on) lasts
-const SLOW_CYCLE_GAP := 0.8      # pause between moves
+const SLOW_BLINK_SECONDS := 0.4
+const SLOW_CYCLE_GAP := 0.8
 
 const FAST_TILES := 15
 const FAST_BLINKS := 3
@@ -24,7 +24,7 @@ const MTR_SPAWN_INTERVAL := 0.2
 const FALL_KILLZONE_POSITION := Vector2(0, 176)
 const FALL_KILLZONE_SIZE := Vector2(1200, 24)
 
-const TILE_SIZE := 16  # tile size of the arena tileset, in pixels
+const TILE_SIZE := 16  # tile size of the arena
 
 @onready var tile_map: TileMap = $TileMap
 
