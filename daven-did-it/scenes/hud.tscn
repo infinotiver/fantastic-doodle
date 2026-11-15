@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://d118ijwp63tue"]
+
+[ext_resource type="Script" uid="uid://dsjo2fbxsmqlt" path="res://scripts/hud.gd" id="1_hud"]
+[ext_resource type="Texture2D" uid="uid://cpsw8knicinpd" path="res://assets/sprites/bottle.png" id="2_hp47d"]
+[ext_resource type="FontFile" uid="uid://up2vdu02rs76" path="res://assets/fonts/Butcherman/Butcherman-Regular.ttf" id="3_5ysmq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 14.0
+content_margin_bottom = 6.0
+bg_color = Color(0.09, 0.04, 0.05, 0.8)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.78, 0.3, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="HUD" type="CanvasLayer" unique_id=545720377]
+layer = 10
+script = ExtResource("1_hud")
+
+[node name="Root" type="MarginContainer" parent="." unique_id=168956192]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="TopBar" type="HBoxContainer" parent="Root" unique_id=770477420]
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="BottlePanel" type="PanelContainer" parent="Root/TopBar" unique_id=793018014]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Row" type="HBoxContainer" parent="Root/TopBar/BottlePanel" unique_id=2059797605]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Icon" type="TextureRect" parent="Root/TopBar/BottlePanel/Row" unique_id=1929666669]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("2_hp47d")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BottleLabel" type="Label" parent="Root/TopBar/BottlePanel/Row" unique_id=1419990593]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.7, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.03, 0.03, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("3_5ysmq")
+theme_override_font_sizes/font_size = 22
+text = "x 0"
+vertical_alignment = 1

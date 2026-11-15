@@ -22,7 +22,7 @@ animations = [{
 radius = 4.0
 height = 18.0
 
-[node name="Coin" type="Area2D" unique_id=1364660099]
+[node name="Bottle" type="Area2D" unique_id=1364660099]
 collision_mask = 2
 script = ExtResource("1_t88ou")
 

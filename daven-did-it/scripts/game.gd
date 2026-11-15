@@ -17,7 +17,15 @@ var respawn_point: Node2D
 ## bounce, and so player scripts can lock out input for the whole sequence.
 var respawning := false
 
+signal bottles_changed(count: int)
 
+var bottles := 0
+
+
+func collect_bottle() -> void:
+	bottles += 1
+	bottles_changed.emit(bottles)
+	
 ## Sends the player to another scene (another zone or another level within
 ## the same zone) and places them at the spawn marker called `spawn` there.
 func travel_to(scene: PackedScene, spawn: StringName = DEFAULT_SPAWN) -> void:
