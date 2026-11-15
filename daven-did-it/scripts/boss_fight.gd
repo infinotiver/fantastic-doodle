@@ -14,8 +14,8 @@ extends Level
 ## Remaining time under which the fight switches to its faster phase.
 @export var fast_phase_at := 7.0
 
-const ARENA_MIN := Vector2i(-11, -7)  # outer rectangle corners:
-const ARENA_MAX := Vector2i(11, 7)    # (11,-7) (11,7) (-11,7) (-11,-7)
+const ARENA_MIN := Vector2i(-18, -7)  # outer rectangle corners:
+const ARENA_MAX := Vector2i(17, 7)    # (17,-7) (17,7) (-18,7) (-18,-7)
 
 const SLOW_TILES := 20
 const SLOW_BLINKS := 5
