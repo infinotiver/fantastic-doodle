@@ -21,6 +21,8 @@ const FAST_CYCLE_GAP := 0.2
 const MTR_1_SCENE: PackedScene = preload("res://mtr_1.tscn")
 const MTR_2_SCENE: PackedScene = preload("res://mtr_2.tscn")
 const MTR_SPAWN_INTERVAL := 0.2
+const FALL_KILLZONE_POSITION := Vector2(0, 176)
+const FALL_KILLZONE_SIZE := Vector2(1200, 24)
 
 const TILE_SIZE := 16  # tile size of the arena tileset, in pixels
 
@@ -33,10 +35,12 @@ var countdown_label: Label
 var _current_cells: Array[Vector2i] = []
 var _ghosts: Array[Sprite2D] = []
 var _in_fast_phase := false
+var _game_over := false
 
 
 func _ready() -> void:
 	super()
+	_create_fall_killzone()
 	var hud := CanvasLayer.new()
 	add_child(hud)
 	countdown_label = Label.new()
@@ -61,6 +65,8 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	if _game_over:
+		return
 	if countdown != null and countdown_label != null and countdown.time_left > 0.0:
 		countdown_label.text = "%02d" % ceili(countdown.time_left)
 
@@ -68,8 +74,9 @@ func _process(_delta: float) -> void:
 func _run_mtr_shower() -> void:
 	var scenes: Array[PackedScene] = [MTR_1_SCENE, MTR_2_SCENE]
 	var scene_index := 0
-	while is_inside_tree() and countdown.time_left > 0.0:
+	while is_inside_tree() and not _game_over and countdown.time_left > 0.0:
 		var projectile := scenes[scene_index].instantiate() as Area2D
+		projectile.add_to_group("boss_projectiles")
 		add_child(projectile)
 		var x := randi_range(ARENA_MIN.x, ARENA_MAX.x)
 		projectile.global_position = tile_map.to_global(_cell_center(Vector2i(x, ARENA_MIN.y - 2)))
@@ -77,7 +84,7 @@ func _run_mtr_shower() -> void:
 		await get_tree().create_timer(MTR_SPAWN_INTERVAL).timeout
 
 func _run_shifts() -> void:
-	while is_inside_tree() and countdown.time_left > 0.0:
+	while is_inside_tree() and not _game_over and countdown.time_left > 0.0:
 		var phase := _phase_params()
 		var new_cells := _pick_cells(phase.count)
 		_spawn_ghosts(new_cells)
@@ -85,7 +92,7 @@ func _run_shifts() -> void:
 		for blink in phase.blinks:
 			_set_ghosts_visible(false)
 			await get_tree().create_timer(phase.blink_seconds).timeout
-			if countdown.time_left <= 0.0:
+			if _game_over or countdown.time_left <= 0.0:
 				_clear_ghosts()
 				return
 			if _current_phase_stage() != phase.stage:
@@ -94,14 +101,14 @@ func _run_shifts() -> void:
 				break
 			_set_ghosts_visible(true)
 			await get_tree().create_timer(phase.blink_seconds).timeout
-			if countdown.time_left <= 0.0:
+			if _game_over or countdown.time_left <= 0.0:
 				_clear_ghosts()
 				return
 			if _current_phase_stage() != phase.stage:
 				_clear_ghosts()
 				phase_changed = true
 				break
-		if countdown.time_left <= 0.0:
+		if _game_over or countdown.time_left <= 0.0:
 			_clear_ghosts()
 			return
 		if phase_changed:
@@ -200,7 +207,42 @@ func _cell_center(cell: Vector2i) -> Vector2:
 	return Vector2(cell) * TILE_SIZE + Vector2.ONE * (TILE_SIZE / 2.0)
 
 
+func _create_fall_killzone() -> void:
+	var killzone := Area2D.new()
+	killzone.name = "FallKillzone"
+	killzone.collision_layer = 0
+	killzone.collision_mask = 2
+	killzone.position = FALL_KILLZONE_POSITION
+	var collision := CollisionShape2D.new()
+	var shape := RectangleShape2D.new()
+	shape.size = FALL_KILLZONE_SIZE
+	collision.shape = shape
+	killzone.add_child(collision)
+	add_child(killzone)
+	killzone.body_entered.connect(_on_fall_killzone_body_entered)
+
+
+func _on_fall_killzone_body_entered(body: Node2D) -> void:
+	if body == player:
+		_finish_game_over()
+
+
+func _finish_game_over() -> void:
+	if _game_over:
+		return
+	_game_over = true
+	countdown.stop()
+	_clear_ghosts()
+	for projectile in get_tree().get_nodes_in_group("boss_projectiles"):
+		projectile.queue_free()
+	if player != null:
+		player.set_physics_process(false)
+	countdown_label.text = "Game Over!"
+
+
 func _on_countdown_finished() -> void:
+	if _game_over:
+		return
 	print("[boss] countdown finished")
 	_clear_ghosts()
 	_show_win_message()
