@@ -1,6 +1,4 @@
 extends Area2D
-## Reusable checkpoint: touching it moves this level's respawn point to its
-## own Spawn marker. The killzone bounces the knight back there from now on.
 
 @export var enabled := true
 

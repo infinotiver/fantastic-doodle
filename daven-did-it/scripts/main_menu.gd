@@ -1,7 +1,6 @@
 extends Control
-## Welcome screen. Set this scene as the project's Main Scene.
 
-## First level to load when the player presses Start.
+# this is basic welcome screen, nothing special doing cuz others are dozing off.... ahhhh
 @export_file("*.tscn") var first_level: String = "res://scenes/main.tscn"
 
 @onready var start_button: Button = $Center/VBox/StartButton

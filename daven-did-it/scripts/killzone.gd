@@ -13,11 +13,7 @@ func _on_body_entered(body: Node2D) -> void:
 	kill(body)
 
 
-## Starts the bounce-back sequence. Called by the Area2D signal, or by the
-## player when it hits a tile whose "killbox" custom data is true.
 func kill(body: Node2D) -> void:
-	# Ignore non-players and anything touching while a bounce is running
-	# (this or any other killzone).
 	if Game.respawning or not (body is CharacterBody2D):
 		return
 	Game.respawning = true
@@ -32,8 +28,6 @@ func _on_timer_timeout() -> void:
 
 
 func _bounce_back() -> void:
-	# The level's start marker by default; checkpoints move this as the
-	# player touches them.
 	var spawn: Node2D = Game.respawn_point
 	if spawn == null or not is_instance_valid(spawn):
 		spawn = Game.find_spawn(get_tree().current_scene, &"")
@@ -53,17 +47,13 @@ func _bounce_back() -> void:
 	p.collision_mask = 0
 	p.velocity = Vector2.ZERO
 	p.set_physics_process(false)
-	# Let the player reset its own state before the flight drives the body
-	# (zone two resets a flipped gravity here, for every kill trigger).
 	if p.has_method(&"on_death_start"):
 		p.call(&"on_death_start")
-	# The player's own script is paused, so pick the animation ourselves.
 	sprite.play("jump")
 
 	var start := p.global_position
 	var end := spawn.global_position
 
-	# Flight: arc to the spawn point (no overshoot)
 	var move := create_tween()
 	move.tween_method(func(t: float) -> void:
 		var pos := start.lerp(end, t)
@@ -71,7 +61,6 @@ func _bounce_back() -> void:
 		p.global_position = pos
 	, 0.0, 1.0, bounce_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
-	# Squash before launch, stretch during flight
 	var fly := create_tween()
 	fly.tween_property(sprite, "scale", base_scale * Vector2(1.3, 0.7), bounce_time * 0.15)
 	fly.tween_property(sprite, "scale", base_scale * Vector2(0.8, 1.3), bounce_time * 0.85) \
@@ -79,12 +68,10 @@ func _bounce_back() -> void:
 
 	await move.finished
 
-	# Turn collision and physics back on, so the floor takes over from here
 	p.collision_layer = old_layer
 	p.collision_mask = old_mask
 	p.set_physics_process(true)
 
-	# Real bounces on the spawn spot, each weaker than the last
 	for i in bounce_count:
 		p.velocity = Vector2(0, -hop_speed * pow(0.5, i))
 		_tween_scale(sprite, base_scale * Vector2(0.85, 1.25), 0.1)
@@ -92,7 +79,6 @@ func _bounce_back() -> void:
 		_tween_scale(sprite, base_scale * Vector2(1.3, 0.7), 0.08)
 		await get_tree().create_timer(0.08).timeout
 
-	# Settle
 	var settle := create_tween()
 	settle.tween_property(sprite, "scale", base_scale, 0.4) \
 		.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
@@ -109,10 +95,9 @@ func _tween_scale(sprite: Node2D, target: Vector2, time: float) -> void:
 
 
 func _wait_for_landing(p: CharacterBody2D) -> void:
-	# Two frames so is_on_floor() reflects the new upward velocity, not the old state
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	var frames := 0
-	while not p.is_on_floor() and frames < 120:  # 120 is a safety cap
+	while not p.is_on_floor() and frames < 120:
 		await get_tree().physics_frame
 		frames += 1

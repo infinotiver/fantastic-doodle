@@ -11,7 +11,7 @@ func _ready() -> void:
 
 func _on_bottles_changed(count: int) -> void:
 	_set_count(count)
-	# Small pop so the player notices the change.
+	# small pop so the player notices the change.
 	panel.pivot_offset = panel.size / 2.0
 	var t := create_tween()
 	t.tween_property(panel, "scale", Vector2(1.15, 1.15), 0.08)

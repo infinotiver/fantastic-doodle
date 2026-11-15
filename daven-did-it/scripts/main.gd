@@ -1,5 +1,5 @@
 extends Level
-## Entry point for the main scene (Zone One).
+## entry point for the main scene (zone One).
 
 
 func _ready() -> void:

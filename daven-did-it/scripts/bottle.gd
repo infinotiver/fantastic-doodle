@@ -1,5 +1,4 @@
 extends Area2D
-## Collectible bottle: floats and tilts gently, pops when collected.
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -9,7 +8,6 @@ var _tilt: Tween
 
 
 func _ready() -> void:
-	# Random delay so bottles don't all move in lockstep.
 	await get_tree().create_timer(randf() * 0.8).timeout
 	if _collected:
 		return
@@ -32,10 +30,9 @@ func _on_body_entered(body: Node2D) -> void:
 	if _collected or not (body is CharacterBody2D):
 		return
 	_collected = true
-	Game.collect_bottle()  # delete this line if you haven't added the counter yet
+	Game.collect_bottle()
 	set_deferred("monitoring", false)
 
-	# Stop the idle loops so they don't fight the pop animation.
 	if _bob:
 		_bob.kill()
 	if _tilt:
