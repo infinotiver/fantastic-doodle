@@ -293,7 +293,7 @@ position = Vector2(983, -10)
 position = Vector2(13, 28)
 
 [node name="Portal" parent="." unique_id=1745582932 instance=ExtResource("8_portal")]
-position = Vector2(1251, 100)
+position = Vector2(1242, 106)
 target_scene_path = "uid://dhjunk2pmnaro"
 target_spawn = &"SpawnPoint"
 
@@ -344,7 +344,7 @@ position = Vector2(135, 136)
 position = Vector2(440, 55)
 
 [node name="Spike3" parent="Spikes" unique_id=625109710 instance=ExtResource("9_choun")]
-position = Vector2(618, 39)
+position = Vector2(631, 87)
 
 [node name="Spike4" parent="Spikes" unique_id=1983610343 instance=ExtResource("9_choun")]
 position = Vector2(732, 11)
@@ -356,7 +356,7 @@ position = Vector2(798, 101)
 position = Vector2(809, 101)
 
 [node name="Spike7" parent="Spikes" unique_id=1227717343 instance=ExtResource("9_choun")]
-position = Vector2(1047, 24)
+position = Vector2(1048, 119)
 
 [node name="Spike8" parent="Spikes" unique_id=1569546907 instance=ExtResource("9_choun")]
 position = Vector2(1128, 134)
