@@ -13,6 +13,7 @@ extends Level
 @export var shift_tile_atlas := Vector2i(1, 1)
 ## Remaining time under which the fight switches to its faster phase.
 @export var fast_phase_at := 7.0
+@export var fast_blink_at := 3.0
 
 const ARENA_MIN := Vector2i(-18, -7)  # outer rectangle corners:
 const ARENA_MAX := Vector2i(17, 7)    # (17,-7) (17,7) (-18,7) (-18,-7)
@@ -33,6 +34,7 @@ const TILE_SIZE := 16  # tile size of the arena tileset, in pixels
 
 ## The fight's countdown. Starts at 20 seconds on load; read with time_left.
 var countdown: Timer
+var countdown_label: Label
 
 var _current_cells: Array[Vector2i] = []
 var _ghosts: Array[Sprite2D] = []
@@ -41,6 +43,19 @@ var _in_fast_phase := false
 
 func _ready() -> void:
 	super()
+	var hud := CanvasLayer.new()
+	add_child(hud)
+	countdown_label = Label.new()
+	countdown_label.set_anchors_preset(Control.PRESET_CENTER_TOP)
+	countdown_label.position = Vector2(-130, 16)
+	countdown_label.size = Vector2(260, 48)
+	countdown_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	countdown_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	countdown_label.add_theme_font_size_override("font_size", 36)
+	countdown_label.add_theme_color_override("font_color", Color.WHITE)
+	countdown_label.add_theme_color_override("font_outline_color", Color.BLACK)
+	countdown_label.add_theme_constant_override("outline_size", 6)
+	hud.add_child(countdown_label)
 	countdown = Timer.new()
 	countdown.one_shot = true
 	countdown.wait_time = 20.0
@@ -50,43 +65,79 @@ func _ready() -> void:
 	_run_shifts()
 
 
+func _process(_delta: float) -> void:
+	if countdown != null and countdown_label != null and countdown.time_left > 0.0:
+		countdown_label.text = "%02d" % ceili(countdown.time_left)
+
+
 ## Loop that keeps relocating the shifting tiles forever, re-reading the
 ## phase parameters every cycle so a move picks up whichever phase the
 ## countdown is in when it starts.
 func _run_shifts() -> void:
-	while is_inside_tree():
+	while is_inside_tree() and countdown.time_left > 0.0:
 		var phase := _phase_params()
 		var new_cells := _pick_cells(phase.count)
 		_spawn_ghosts(new_cells)
-		# Telegraph: blink at the new spot, then solidify there.
+		var phase_changed := false
 		for blink in phase.blinks:
 			_set_ghosts_visible(false)
 			await get_tree().create_timer(phase.blink_seconds).timeout
+			if countdown.time_left <= 0.0:
+				_clear_ghosts()
+				return
+			if _current_phase_stage() != phase.stage:
+				_clear_ghosts()
+				phase_changed = true
+				break
 			_set_ghosts_visible(true)
 			await get_tree().create_timer(phase.blink_seconds).timeout
+			if countdown.time_left <= 0.0:
+				_clear_ghosts()
+				return
+			if _current_phase_stage() != phase.stage:
+				_clear_ghosts()
+				phase_changed = true
+				break
+		if countdown.time_left <= 0.0:
+			_clear_ghosts()
+			return
+		if phase_changed:
+			continue
 		_move_tiles(new_cells)
 		await get_tree().create_timer(phase.cycle_gap).timeout
 
 
 func _phase_params() -> Dictionary:
-	if countdown.time_left < fast_phase_at:
-		if not _in_fast_phase:
-			_in_fast_phase = true
-			print("[boss] under %.0fs: %d tiles, %d blinks, faster" % [fast_phase_at, FAST_TILES, FAST_BLINKS])
+	var stage := _current_phase_stage()
+	var fast_blinking := stage == 2
+	if fast_blinking and not _in_fast_phase:
+		_in_fast_phase = true
+		print("[boss] under %.0fs: %d tiles, %d blinks, faster" % [fast_blink_at, FAST_TILES, FAST_BLINKS])
+	elif not fast_blinking:
+		_in_fast_phase = false
+	if stage > 0:
 		return {
+			"stage": stage,
 			"count": FAST_TILES,
 			"blinks": FAST_BLINKS,
-			"blink_seconds": FAST_BLINK_SECONDS,
-			"cycle_gap": FAST_CYCLE_GAP,
+			"blink_seconds": FAST_BLINK_SECONDS if fast_blinking else SLOW_BLINK_SECONDS,
+			"cycle_gap": FAST_CYCLE_GAP if fast_blinking else SLOW_CYCLE_GAP,
 		}
-	if _in_fast_phase:
-		_in_fast_phase = false
 	return {
+		"stage": stage,
 		"count": SLOW_TILES,
 		"blinks": SLOW_BLINKS,
 		"blink_seconds": SLOW_BLINK_SECONDS,
 		"cycle_gap": SLOW_CYCLE_GAP,
 	}
+
+
+func _current_phase_stage() -> int:
+	if countdown.time_left <= fast_blink_at:
+		return 2
+	if countdown.time_left < fast_phase_at:
+		return 1
+	return 0
 
 
 ## Chooses `count` random free cells inside the arena rectangle. Cells that
@@ -159,3 +210,9 @@ func _cell_center(cell: Vector2i) -> Vector2:
 ## keeps running in its fast phase.
 func _on_countdown_finished() -> void:
 	print("[boss] countdown finished")
+	_clear_ghosts()
+	_show_win_message()
+
+
+func _show_win_message() -> void:
+	countdown_label.text = "You win!"
