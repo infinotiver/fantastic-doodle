@@ -7,32 +7,25 @@ const JUMP_VELOCITY = -300.0
 
 
 func _physics_process(delta: float) -> void:
-	# Gravity always applies, so the death bounce's hops can still land.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# While a death sequence runs (the killzone's bounce-back), input is
-	# ignored: the killzone script drives the body and the animation, so
-	# crouch-squash and flight can't be fought with run/jump.
 	if Game.respawning:
 		velocity.x = 0.0
 		move_and_slide()
 		return
 
-	# Jump, only when standing on the floor.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	# Get horizontal input: -1 (left), 0 (none), 1 (right).
 	var direction := Input.get_axis("move_left", "move_right")
 
-	# Face the direction we're moving.
 	if direction > 0:
 		animated_sprite_2d.flip_h = false
 	elif direction < 0:
 		animated_sprite_2d.flip_h = true
 
-	# Move horizontally, or slow to a stop when there's no input.
+	# Move horizontallyyyy
 	if direction != 0:
 		velocity.x = direction * SPEED
 	else:
@@ -44,11 +37,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _check_killboxes() -> void:
-	# Any slide collision against a TileMap tile whose "killbox" custom data
-	# is true (e.g. the spikes) triggers the killzone's death sequence.
-	# NOTE: get_coords_for_body_rid is unreliable in Godot 4.7 (it reports
-	# the physics quadrant's base cell), so look up the tile at the contact
-	# point instead, nudged slightly into the surface along the normal.
+
 	for i in get_slide_collision_count():
 		var collision := get_slide_collision(i)
 		var tilemap := collision.get_collider() as TileMap

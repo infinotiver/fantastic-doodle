@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://botq26llisjsl"]
+
+[ext_resource type="Texture2D" uid="uid://cgnabg3puryg6" path="res://assets/sprites/Sprite-0015.png" id="1_1nqdm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bj1t6"]
+atlas = ExtResource("1_1nqdm")
+region = Rect2(0, 0, 152, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cl6ov"]
+atlas = ExtResource("1_1nqdm")
+region = Rect2(152, 0, 152, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ym7u8"]
+atlas = ExtResource("1_1nqdm")
+region = Rect2(304, 0, 152, 120)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_683gt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bj1t6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cl6ov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ym7u8")
+}],
+"loop": 2,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="DAVEN" type="AnimatedSprite2D" unique_id=1948893581]
+sprite_frames = SubResource("SpriteFrames_683gt")
+autoplay = "default"
+frame_progress = 0.8276634

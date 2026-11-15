@@ -1,15 +1,5 @@
 extends Level
-## Boss fight arena. A 20 second countdown drives a "shifting tiles" hazard:
-## tiles telegraph their next spot by blinking there, then become solid at
-## the new spots while the old ones vanish.
-##
-## While the timer is above FAST_PHASE_AT the arena holds SLOW_TILES tiles
-## that blink SLOW_BLINKS times per move at a relaxed pace. Once it drops
-## under, only FAST_TILES tiles remain, they blink FAST_BLINKS times and
-## everything runs much faster.
 
-## Atlas coords of the tile used for the shifting tiles (from the TileMap's
-## atlas source 0, the same solid tile the arena's ground uses).
 @export var shift_tile_atlas := Vector2i(1, 1)
 ## Remaining time under which the fight switches to its faster phase.
 @export var fast_phase_at := 7.0
@@ -28,11 +18,15 @@ const FAST_BLINKS := 3
 const FAST_BLINK_SECONDS := 0.15
 const FAST_CYCLE_GAP := 0.2
 
+const MTR_1_SCENE: PackedScene = preload("res://mtr_1.tscn")
+const MTR_2_SCENE: PackedScene = preload("res://mtr_2.tscn")
+const MTR_SPAWN_INTERVAL := 0.2
+
 const TILE_SIZE := 16  # tile size of the arena tileset, in pixels
 
 @onready var tile_map: TileMap = $TileMap
 
-## The fight's countdown. Starts at 20 seconds on load; read with time_left.
+# 20s countdown
 var countdown: Timer
 var countdown_label: Label
 
@@ -62,6 +56,7 @@ func _ready() -> void:
 	countdown.timeout.connect(_on_countdown_finished)
 	add_child(countdown)
 	countdown.start()
+	_run_mtr_shower()
 	_run_shifts()
 
 
@@ -70,9 +65,17 @@ func _process(_delta: float) -> void:
 		countdown_label.text = "%02d" % ceili(countdown.time_left)
 
 
-## Loop that keeps relocating the shifting tiles forever, re-reading the
-## phase parameters every cycle so a move picks up whichever phase the
-## countdown is in when it starts.
+func _run_mtr_shower() -> void:
+	var scenes: Array[PackedScene] = [MTR_1_SCENE, MTR_2_SCENE]
+	var scene_index := 0
+	while is_inside_tree() and countdown.time_left > 0.0:
+		var projectile := scenes[scene_index].instantiate() as Area2D
+		add_child(projectile)
+		var x := randi_range(ARENA_MIN.x, ARENA_MAX.x)
+		projectile.global_position = tile_map.to_global(_cell_center(Vector2i(x, ARENA_MIN.y - 2)))
+		scene_index = (scene_index + 1) % scenes.size()
+		await get_tree().create_timer(MTR_SPAWN_INTERVAL).timeout
+
 func _run_shifts() -> void:
 	while is_inside_tree() and countdown.time_left > 0.0:
 		var phase := _phase_params()
@@ -139,10 +142,6 @@ func _current_phase_stage() -> int:
 		return 1
 	return 0
 
-
-## Chooses `count` random free cells inside the arena rectangle. Cells that
-## already hold level geometry are skipped, as is anything right on top of
-## the player so tiles never appear inside them.
 func _pick_cells(count: int) -> Array[Vector2i]:
 	var picked: Array[Vector2i] = []
 	var attempts := 0
@@ -163,9 +162,6 @@ func _pick_cells(count: int) -> Array[Vector2i]:
 		picked.append(cell)
 	return picked
 
-
-## Swaps the tiles over: old cells are erased and the new ones become solid
-## right where they were blinking.
 func _move_tiles(new_cells: Array[Vector2i]) -> void:
 	for cell in _current_cells:
 		tile_map.erase_cell(0, cell)
@@ -200,19 +196,14 @@ func _clear_ghosts() -> void:
 		ghost.queue_free()
 	_ghosts.clear()
 
-
-## Center of a cell in the TileMap's local space.
 func _cell_center(cell: Vector2i) -> Vector2:
 	return Vector2(cell) * TILE_SIZE + Vector2.ONE * (TILE_SIZE / 2.0)
 
 
-## Hook for whatever the boss does when time runs out. The tile shifting
-## keeps running in its fast phase.
 func _on_countdown_finished() -> void:
 	print("[boss] countdown finished")
 	_clear_ghosts()
 	_show_win_message()
-
 
 func _show_win_message() -> void:
 	countdown_label.text = "You win!"

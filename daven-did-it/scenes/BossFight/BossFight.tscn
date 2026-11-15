@@ -3,6 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://dvmp2e8xsiogc" path="res://assets/sprites/world_tileset (1).png" id="1_nombs"]
 [ext_resource type="PackedScene" uid="uid://bwm4uoiicxqks" path="res://scenes/player.tscn" id="2_xux0m"]
 [ext_resource type="Script" uid="uid://bedka3dfhrpw5" path="res://scripts/boss_fight.gd" id="3_boss"]
+[ext_resource type="Texture2D" uid="uid://bjqi8pjkjrwqu" path="res://assets/sprites/devan.png" id="4_tra0d"]
+[ext_resource type="PackedScene" uid="uid://botq26llisjsl" path="res://daven.tscn" id="5_jx37l"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tra0d"]
 texture = ExtResource("1_nombs")
@@ -163,6 +165,26 @@ texture = ExtResource("1_nombs")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_tra0d")
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_683gt"]
+animations = [{
+"frames": [],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_tra0d")
+}],
+"loop": 1,
+"name": &"new_animation_1",
+"speed": 5.0
+}]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jx37l"]
+normal = Vector2(-0.0033556859, -0.9999944)
+distance = -328.99817
+
 [node name="BossFight" type="Node2D" unique_id=736577068]
 script = ExtResource("3_boss")
 
@@ -177,3 +199,17 @@ position = Vector2(0, 90)
 [node name="Camera2D" type="Camera2D" parent="." unique_id=706255062]
 position = Vector2(0, -35)
 zoom = Vector2(2, 2)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1089405695]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D" unique_id=1864688420]
+sprite_frames = SubResource("SpriteFrames_683gt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1446063265]
+
+[node name="DAVEN" parent="." unique_id=1948893581 instance=ExtResource("5_jx37l")]
+position = Vector2(0, -144)
+
+[node name="TopBoundary" type="CollisionShape2D" parent="." unique_id=1153417650]
+position = Vector2(0, -168)
+shape = SubResource("WorldBoundaryShape2D_jx37l")

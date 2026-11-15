@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://blatpunej2nx4"]
+
+[ext_resource type="Texture2D" uid="uid://jd6dh84j0itr" path="res://assets/sprites/MRT2.png" id="1_x1cif"]
+[ext_resource type="Script" uid="uid://13v31wd6akvl" path="res://scripts/mtr_projectile.gd" id="2_script"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mtr"]
+radius = 7.0
+
+[node name="MTR2" type="Area2D" unique_id=557508991]
+z_index = 10
+collision_layer = 0
+script = ExtResource("2_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=121171127]
+rotation = 1.5707964
+scale = Vector2(3, 3)
+texture = ExtResource("1_x1cif")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1153347305]
+shape = SubResource("CircleShape2D_mtr")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
