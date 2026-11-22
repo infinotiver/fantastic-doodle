@@ -1,7 +1,6 @@
 [gd_scene format=4 uid="uid://dhjunk2pmnaro"]
 
 [ext_resource type="Texture2D" uid="uid://da6gfcp2fp5tb" path="res://assets/sprites/world_tileset.png" id="2_omabd"]
-[ext_resource type="Script" uid="uid://bf54vaqq73opo" path="res://scripts/zone 2/zone_two_player.gd" id="2_player"]
 [ext_resource type="Script" uid="uid://c7g1vtlr00taw" path="res://scripts/zone 2/zone_two.gd" id="3_zone"]
 [ext_resource type="Texture2D" uid="uid://du8av1iub1yll" path="res://assets/sprites/Spike.png" id="4_i378m"]
 [ext_resource type="PackedScene" uid="uid://bwm4uoiicxqks" path="res://scenes/player.tscn" id="4_mtbqe"]
@@ -478,7 +477,6 @@ texture = ExtResource("4_i378m")
 texture = SubResource("CompressedTexture2D_m23h1")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_i378m"]
-load_path = "res://.godot/imported/Sprite-0012.png-250c8ced682b1c2462fee34557368f3c.ctex"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i378m"]
 texture = SubResource("CompressedTexture2D_i378m")
@@ -588,12 +586,7 @@ tile_map_data = PackedByteArray("AAD8/wEAAQAAAAAAAAD9/wEAAQABAAAAAAD+/wEAAQAAAAA
 tile_set = SubResource("TileSet_8oxoo")
 
 [node name="Player" parent="." unique_id=1304845065 instance=ExtResource("4_mtbqe")]
-position = Vector2(-50, -13)
-script = ExtResource("2_player")
-
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=416348798]
-position = Vector2(22, 13)
-zoom = Vector2(3, 3)
+mode = 1
 
 [node name="SpawnPoint" type="Marker2D" parent="." unique_id=497686456 groups=["spawn_points"]]
 position = Vector2(-50, -13)

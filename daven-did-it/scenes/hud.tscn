@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dsjo2fbxsmqlt" path="res://scripts/hud.gd" id="1_hud"]
 [ext_resource type="Texture2D" uid="uid://cpsw8knicinpd" path="res://assets/sprites/bottle.png" id="2_hp47d"]
-[ext_resource type="FontFile" uid="uid://mvc046b015b5" path="res://assets/fonts/Creepster/Creepster-Regular.ttf" id="3_5ysmq"]
+[ext_resource type="FontFile" uid="uid://b56cuntm6yoln" path="res://assets/fonts/PixelifySans-Bold.ttf" id="3_5ysmq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 content_margin_left = 12.0

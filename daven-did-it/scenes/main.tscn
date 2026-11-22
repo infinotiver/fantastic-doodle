@@ -321,7 +321,7 @@ position = Vector2(777, -57)
 position = Vector2(840, 39)
 
 [node name="Bottle8" parent="Bottles" unique_id=1121938984 instance=ExtResource("4_jyhfs")]
-position = Vector2(984, 71)
+position = Vector2(976, 71)
 
 [node name="Bottle9" parent="Bottles" unique_id=1750756002 instance=ExtResource("4_jyhfs")]
 position = Vector2(1079, -25)
