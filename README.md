@@ -1,29 +1,22 @@
-# daven-did-it
+# daven did it
 
-A 2D platformer made with Godot where your main enemy is (Evil) Daven. You are a stranded knight who must collect bottles and defeat Daven in the hell to escape his wrath and restore your kingdom. Made for Hack Club Haven 2026 <3
+you are playing as a rookie ninja, who must try to save his village from the wrath of a creature called (evil) daven. your master went missing trying to stop daven, and now it is up to you to defeat him and save your village (and also find your master).
 
-# Gameplay
+# gameplay
 
-Go to https://infino.itch.io/daven-did-it and play there
+for testing: go to https://infino.itch.io/daven-did-it and play there
 
-**Features btw**
 
-- platforming and jumping
-- collectible bottles
-- spawn points and respawning
-- hazards, slimes, and a boss fight
-- multiple zones and portals
-- web export support
+## controls
 
-## Controls
+| action     | keys    |
+| ---------- | ------- |
+| Move left  | `A`     |
+| Move right | `D`     |
+| Jump       | `W`     |
+| Action     | `Space` |
 
-| Action     | Keys         |
-| ---------- | ------------ |
-| Move left  | `A`          |
-| Move right | `D`          |
-| Jump       | `W` or Space |
-
-# Installation
+# installation
 
 1. Install Godot 4.7 or a compatible Godot 4 release.
 2. Open `daven-did-it/project.godot` in Godot.
@@ -31,8 +24,10 @@ Go to https://infino.itch.io/daven-did-it and play there
 
 you can also build the game for web export and play it in your browser, or build it for desktop platforms (gonna add builds later in repo)
 
-# Credits
+# credits
+
+this game was _originally_ built by the following cool folks for hack club haven 2026:
 
 - [infinotiver](https://github.com/infinotiver)
 - [tanishworks](https://github.com/tanishworks)
-- [krypt0s2](https://github.com/krypt0s2)
+- [krypt0s2](https://github.com/krypt0s2) (art)
