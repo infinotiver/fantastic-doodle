@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://buv3nnnxto0pl"]
+
+[ext_resource type="Script" uid="uid://boxxsi0bqmdi4" path="res://cutscenes/cutscene.gd" id="1_c1036"]
+[ext_resource type="FontFile" uid="uid://b1w0kaalgpvg8" path="res://assets/fonts/PixelifySans-Regular.ttf" id="2_e7jua"]
+[ext_resource type="Theme" uid="uid://cmvmbj68mb66s" path="res://assets/themes/hud.tres" id="3_aanlq"]
+
+[node name="Cutscene" type="Control" unique_id=715205546]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c1036")
+
+[node name="Background" type="ColorRect" parent="." unique_id=40941001]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="." unique_id=1269497458]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 96.0
+offset_right = -96.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_e7jua")
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Choices" type="HBoxContainer" parent="." unique_id=1945430974]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -160.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_aanlq")
+theme_override_constants/separation = 48
+alignment = 1
+
+[node name="Hint" type="Label" parent="." unique_id=1552022631]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -56.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "space / click to continue"
+horizontal_alignment = 1

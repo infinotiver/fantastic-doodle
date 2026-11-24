@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dnu43l2qbwqa7"]
+
+[ext_resource type="PackedScene" uid="uid://buv3nnnxto0pl" path="res://cutscenes/cutscene.tscn" id="1"]
+
+[node name="Opening" unique_id=497712035 instance=ExtResource("1")]
+lines = PackedStringArray("Your village is dying.", "The villagers blame a rumored Daven, evilest of all, responsible for all the misery.", "Daven has something. Something that can cure anything, can instill life in the dead, save anything from death. But getting it is impossible.", "You must go down to hell and look for yourself.")
+choices = PackedStringArray("Yeah", "Nay")
+next_scene = "uid://cpxd3y4l6a2dr"
