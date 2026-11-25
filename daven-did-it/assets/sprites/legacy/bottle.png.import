@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://du8av1iub1yll"
-path="res://.godot/imported/Spike.png-b67a991c349ebe46e5bf4fca649d5aca.ctex"
+uid="uid://cpsw8knicinpd"
+path="res://.godot/imported/bottle.png-98270f04d3a875feb0e3d2aa3f9c5401.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Spike.png"
-dest_files=["res://.godot/imported/Spike.png-b67a991c349ebe46e5bf4fca649d5aca.ctex"]
+source_file="res://assets/sprites/legacy/bottle.png"
+dest_files=["res://.godot/imported/bottle.png-98270f04d3a875feb0e3d2aa3f9c5401.ctex"]
 
 [params]
 

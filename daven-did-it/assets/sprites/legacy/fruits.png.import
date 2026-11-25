@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjrvcb7cpg8ik"
-path="res://.godot/imported/CuteHeartDaven.png-e512653a27b38ee8c1a0687b8e0a02d2.ctex"
+uid="uid://c8um4fdheuagr"
+path="res://.godot/imported/fruits.png-d88a8112edc19553029ac9e0936dc6f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/CuteHeartDaven.png"
-dest_files=["res://.godot/imported/CuteHeartDaven.png-e512653a27b38ee8c1a0687b8e0a02d2.ctex"]
+source_file="res://assets/sprites/legacy/fruits.png"
+dest_files=["res://.godot/imported/fruits.png-d88a8112edc19553029ac9e0936dc6f8.ctex"]
 
 [params]
 

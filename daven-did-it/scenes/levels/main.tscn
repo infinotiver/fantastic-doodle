@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cejjo3dwmotcx"]
 
 [ext_resource type="PackedScene" uid="uid://bwm4uoiicxqks" path="res://scenes/player.tscn" id="1_o5qli"]
-[ext_resource type="Texture2D" uid="uid://da6gfcp2fp5tb" path="res://assets/sprites/world_tileset.png" id="2_85g3d"]
+[ext_resource type="Texture2D" uid="uid://da6gfcp2fp5tb" path="res://assets/sprites/legacy/world_tileset.png" id="2_85g3d"]
 [ext_resource type="PackedScene" uid="uid://cg3na7mowqt17" path="res://scenes/objects/platform.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://cra8llpvpua12" path="res://scenes/objects/bottle.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://c0ncwt7sugpjr" path="res://scenes/objects/killzone.tscn" id="5_tbgi4"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://de40dxmpeb3ii" path="res://scenes/objects/portal.tscn" id="8_portal"]
 [ext_resource type="PackedScene" uid="uid://d118ijwp63tue" path="res://scenes/ui/hud.tscn" id="9_85g3d"]
 [ext_resource type="PackedScene" uid="uid://vfoyokd68siy" path="res://scenes/objects/spike.tscn" id="9_choun"]
+[ext_resource type="Theme" uid="uid://cmvmbj68mb66s" path="res://assets/themes/hud.tres" id="11_hwp66"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sugp2"]
 texture = ExtResource("2_85g3d")
@@ -362,3 +363,13 @@ position = Vector2(1048, 119)
 position = Vector2(1128, 134)
 
 [node name="HUD" parent="." unique_id=1662114036 instance=ExtResource("9_85g3d")]
+
+[node name="Label" type="Label" parent="." unique_id=1448138433]
+offset_left = -91.0
+offset_top = -7.0
+offset_right = -5.0
+offset_bottom = 4.0
+theme = ExtResource("11_hwp66")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 8
+text = "IT WAS NEVER A CHOICE"

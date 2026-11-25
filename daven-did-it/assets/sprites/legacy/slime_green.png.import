@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://caj7jd0bu8vt3"
-path="res://.godot/imported/Crying_Obsidian_JE1_BE1.png-d7104c0099aea081dc0df9ad35af1413.ctex"
+uid="uid://drgnqttb88qpr"
+path="res://.godot/imported/slime_green.png-0b01e6041a4cb8b215c90316bba7d948.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Crying_Obsidian_JE1_BE1.png"
-dest_files=["res://.godot/imported/Crying_Obsidian_JE1_BE1.png-d7104c0099aea081dc0df9ad35af1413.ctex"]
+source_file="res://assets/sprites/legacy/slime_green.png"
+dest_files=["res://.godot/imported/slime_green.png-0b01e6041a4cb8b215c90316bba7d948.ctex"]
 
 [params]
 

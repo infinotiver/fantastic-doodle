@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jd6dh84j0itr"
-path="res://.godot/imported/MRT2.png-1799ff01f76f8f756d946537b04590bf.ctex"
+uid="uid://caj7jd0bu8vt3"
+path="res://.godot/imported/Crying_Obsidian_JE1_BE1.png-79fdb6bf42bc373ab78fb055b83eee43.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/MRT2.png"
-dest_files=["res://.godot/imported/MRT2.png-1799ff01f76f8f756d946537b04590bf.ctex"]
+source_file="res://assets/sprites/legacy/Crying_Obsidian_JE1_BE1.png"
+dest_files=["res://.godot/imported/Crying_Obsidian_JE1_BE1.png-79fdb6bf42bc373ab78fb055b83eee43.ctex"]
 
 [params]
 

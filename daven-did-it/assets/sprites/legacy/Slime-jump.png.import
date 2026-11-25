@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8um4fdheuagr"
-path="res://.godot/imported/fruits.png-08c41da2082f1d6ce0f0c75f526ea355.ctex"
+uid="uid://qonvo8anq114"
+path="res://.godot/imported/Slime-jump.png-8fee237430dae230110e7822aadab365.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/fruits.png"
-dest_files=["res://.godot/imported/fruits.png-08c41da2082f1d6ce0f0c75f526ea355.ctex"]
+source_file="res://assets/sprites/legacy/Slime-jump.png"
+dest_files=["res://.godot/imported/Slime-jump.png-8fee237430dae230110e7822aadab365.ctex"]
 
 [params]
 

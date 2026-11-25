@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0ego443agtwt"
-path="res://.godot/imported/angel mommy.png-669e181e8cba60a3c613a13562e22985.ctex"
+uid="uid://du8av1iub1yll"
+path="res://.godot/imported/Spike.png-e46b3bec6c8db2e5b019dd0e6b93e44f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/angel mommy.png"
-dest_files=["res://.godot/imported/angel mommy.png-669e181e8cba60a3c613a13562e22985.ctex"]
+source_file="res://assets/sprites/legacy/Spike.png"
+dest_files=["res://.godot/imported/Spike.png-e46b3bec6c8db2e5b019dd0e6b93e44f.ctex"]
 
 [params]
 

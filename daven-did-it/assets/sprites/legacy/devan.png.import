@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlhph24obwx08"
-path="res://.godot/imported/HumansProjectiles.png-3169c085c2db1a5dec94dab6b3993bbd.ctex"
+uid="uid://bjqi8pjkjrwqu"
+path="res://.godot/imported/devan.png-68f9c52f5fc325258c73ba19b4e4471d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/HumansProjectiles.png"
-dest_files=["res://.godot/imported/HumansProjectiles.png-3169c085c2db1a5dec94dab6b3993bbd.ctex"]
+source_file="res://assets/sprites/legacy/devan.png"
+dest_files=["res://.godot/imported/devan.png-68f9c52f5fc325258c73ba19b4e4471d.ctex"]
 
 [params]
 

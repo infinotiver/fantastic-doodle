@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjqi8pjkjrwqu"
-path="res://.godot/imported/devan.png-87565d3d82e90dd42c85bfc432d752fe.ctex"
+uid="uid://cgnabg3puryg6"
+path="res://.godot/imported/Sprite-0015.png-fc408d01a5e92d4de01eab61f1b5f11f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/devan.png"
-dest_files=["res://.godot/imported/devan.png-87565d3d82e90dd42c85bfc432d752fe.ctex"]
+source_file="res://assets/sprites/legacy/Sprite-0015.png"
+dest_files=["res://.godot/imported/Sprite-0015.png-fc408d01a5e92d4de01eab61f1b5f11f.ctex"]
 
 [params]
 

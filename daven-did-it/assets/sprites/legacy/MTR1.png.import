@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dbj23hm64ahwp"
-path="res://.godot/imported/MTR1.png-0337072c20f74ec310099aebfccfe65c.ctex"
+path="res://.godot/imported/MTR1.png-ae9dcf46c5e881d6fc123b43b5b2aeac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/MTR1.png"
-dest_files=["res://.godot/imported/MTR1.png-0337072c20f74ec310099aebfccfe65c.ctex"]
+source_file="res://assets/sprites/legacy/MTR1.png"
+dest_files=["res://.godot/imported/MTR1.png-ae9dcf46c5e881d6fc123b43b5b2aeac.ctex"]
 
 [params]
 

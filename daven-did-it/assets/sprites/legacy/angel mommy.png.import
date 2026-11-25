@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bccyqc5evjur5"
-path="res://.godot/imported/Blood-moon.png-a363e2aebc3f3926a3f8d94a743d7e8a.ctex"
+uid="uid://0ego443agtwt"
+path="res://.godot/imported/angel mommy.png-5c8f3d0a9b2e2c65529249257dd4807d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Blood-moon.png"
-dest_files=["res://.godot/imported/Blood-moon.png-a363e2aebc3f3926a3f8d94a743d7e8a.ctex"]
+source_file="res://assets/sprites/legacy/angel mommy.png"
+dest_files=["res://.godot/imported/angel mommy.png-5c8f3d0a9b2e2c65529249257dd4807d.ctex"]
 
 [params]
 

@@ -2,7 +2,21 @@
 
 [ext_resource type="Script" uid="uid://varwucdx4jyr" path="res://scripts/main_menu.gd" id="1_menu"]
 [ext_resource type="FontFile" uid="uid://b56cuntm6yoln" path="res://assets/fonts/PixelifySans-Bold.ttf" id="2_bqqt6"]
+[ext_resource type="Theme" uid="uid://cmvmbj68mb66s" path="res://assets/themes/hud.tres" id="2_m1kxf"]
+[ext_resource type="FontFile" uid="uid://cteme8csbeya7" path="res://assets/fonts/Geist_Pixel/GeistPixel-Regular-VariableFont_ELSH.ttf" id="3_x2yvf"]
 [ext_resource type="FontFile" uid="uid://b1w0kaalgpvg8" path="res://assets/fonts/PixelifySans-Regular.ttf" id="4_wu84c"]
+
+[sub_resource type="Gradient" id="Gradient_x2yvf"]
+colors = PackedColorArray(0, 0, 0, 1, 0.41960785, 0.07450981, 0.03529412, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wvhbo"]
+gradient = SubResource("Gradient_x2yvf")
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_gjx45"]
+base_font = ExtResource("3_x2yvf")
+variation_embolden = 1.0
 
 [node name="MainMenu" type="Control" unique_id=1077681998]
 layout_mode = 3
@@ -12,6 +26,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_menu")
+first_level = "uid://dnu43l2qbwqa7"
 
 [node name="Background" type="ColorRect" parent="." unique_id=1628886946]
 layout_mode = 1
@@ -22,61 +37,65 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.1, 0.03, 0.04, 1)
 
-[node name="Center" type="CenterContainer" parent="." unique_id=390035030]
+[node name="TextureRect" type="TextureRect" parent="Background" unique_id=100098483]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = SubResource("GradientTexture2D_wvhbo")
+expand_mode = 2
+
+[node name="Center" type="MarginContainer" parent="." unique_id=946372850]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 160
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_bottom = 64
 
 [node name="VBox" type="VBoxContainer" parent="Center" unique_id=2019718941]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme = ExtResource("2_m1kxf")
+theme_override_constants/separation = 32
+alignment = 1
 
 [node name="Title" type="Label" parent="Center/VBox" unique_id=1637903483]
 layout_mode = 2
+theme_type_variation = &"TitleLabel"
 theme_override_colors/font_color = Color(1, 0.78, 0.3, 1)
-theme_override_fonts/font = ExtResource("2_bqqt6")
-theme_override_font_sizes/font_size = 56
+theme_override_fonts/font = SubResource("FontVariation_gjx45")
+theme_override_font_sizes/font_size = 96
 text = "Daven Did It"
-horizontal_alignment = 1
-
-[node name="Story" type="Label" parent="Center/VBox" unique_id=1510541765]
-custom_minimum_size = Vector2(560, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("4_wu84c")
-theme_override_font_sizes/font_size = 20
-text = "The devil Daven stole the kingdom's courage and sealed it in bottles. A knight with no courage left has nothing to lose. Get it all back."
-horizontal_alignment = 1
-autowrap_mode = 2
-
-[node name="Controls" type="Label" parent="Center/VBox" unique_id=555132977]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
-theme_override_fonts/font = ExtResource("4_wu84c")
-theme_override_font_sizes/font_size = 16
-text = "A/D (or arrow keys) and W/Space to jump"
-horizontal_alignment = 1
 
 [node name="StartButton" type="Button" parent="Center/VBox" unique_id=1479258828]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 0.7490196)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
 theme_override_fonts/font = ExtResource("2_bqqt6")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 40
 text = "Start"
+flat = true
 
 [node name="Label" type="Label" parent="." unique_id=793223638]
-layout_mode = 0
-offset_left = 306.0
-offset_top = 497.0
-offset_right = 854.0
-offset_bottom = 574.0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 160.0
+offset_top = -77.0
+offset_right = 548.0
+grow_vertical = 0
 theme_override_fonts/font = ExtResource("4_wu84c")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 20
 text = "Made with agony by
 @infinotiver @tanishworks @kryptos2"
-horizontal_alignment = 1
 vertical_alignment = 1
 
 [connection signal="pressed" from="Center/VBox/StartButton" to="." method="_on_start_pressed"]
